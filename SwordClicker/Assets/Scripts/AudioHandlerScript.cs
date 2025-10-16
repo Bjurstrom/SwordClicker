@@ -1,12 +1,13 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioHandlerScript : MonoBehaviour
 {
     [SerializeField] AudioClip backroundMusic;
     [SerializeField] AudioClip ClickSFX;
-    [SerializeField] AudioClip Boink;
-    [SerializeField] AudioClip Bink;
+
+    [Header("AnvilHitSound")]
+    [SerializeField] AudioClip[] MetalHitSound;
+    
 
     AudioSource audioSource;
 
@@ -32,8 +33,13 @@ public class AudioHandlerScript : MonoBehaviour
 
     }
 
-    void PlayClickSound()
+    public void PlayClickSound()
     {
         audioSource.PlayOneShot(ClickSFX);
+    }
+
+    public void PlayAnvilSound()
+    {
+        audioSource.PlayOneShot(MetalHitSound[Random.Range(1,MetalHitSound.Length)]);
     }
 }
