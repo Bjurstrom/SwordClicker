@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,38 +12,26 @@ public class GameManager : MonoBehaviour
     [Header("Money")]
     [SerializeField] float money;
 
-    [Header("Upgrades")]
-    [SerializeField] int clickValue = 1;
-    [SerializeField] int autoClickPerSec;
+    UpgradeButton upgradeButton;
+    AutoClicker autoClicker;
+
+    public void Awake()
+    {
+        upgradeButton = FindFirstObjectByType<UpgradeButton>();
+        autoClicker = FindFirstObjectByType<AutoClicker>();
+    }
 
     private void FixedUpdate()
     {
         moneyDisplay.text = money.ToString("n0");
-        upgradeDisplay.text = clickValue.ToString();
-        autoClickerDisplay.text = autoClickPerSec.ToString("CPS: " + autoClickPerSec);
+        upgradeDisplay.text = upgradeButton.clickValue.ToString();
+        autoClickerDisplay.text = autoClicker.autoClickPerSec.ToString("CPS: " + autoClicker.autoClickPerSec);
 
-        money += autoClickPerSec * Time.deltaTime;
+        money += autoClicker.autoClickPerSec * Time.deltaTime;
     }
 
     public void ClickerPress()
     {
-        money += clickValue;
-    }
-
-    public void UpgradeButtonLvl1()
-    {
-        clickValue += 1;
-    }
-
-    
-    public void UpgradeButtonLvl2()
-    {
-        clickValue += 10;
-    }
-
-    public void AutoClicker()
-    {
-        autoClickPerSec += 1;
-        Debug.Log(autoClickPerSec);
+        money += upgradeButton.clickValue;
     }
 }
