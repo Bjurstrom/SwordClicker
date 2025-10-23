@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI autoClickerDisplay;
 
     [Header("Money")]
-    [SerializeField] float money;
+    public float money;
 
     UpgradeHandler handler;
     AutoClicker autoClicker;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         autoClicker = FindFirstObjectByType<AutoClicker>();
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         moneyDisplay.text = money.ToString("n0");
         upgradeDisplay.text = handler.clickValue.ToString();
