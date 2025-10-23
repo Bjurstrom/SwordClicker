@@ -12,26 +12,26 @@ public class GameManager : MonoBehaviour
     [Header("Money")]
     [SerializeField] float money;
 
-    UpgradeButton upgradeButton;
+    UpgradeHandler handler;
     AutoClicker autoClicker;
 
     public void Awake()
     {
-        upgradeButton = FindFirstObjectByType<UpgradeButton>();
+        handler = FindFirstObjectByType<UpgradeHandler>();
         autoClicker = FindFirstObjectByType<AutoClicker>();
     }
 
     private void FixedUpdate()
     {
         moneyDisplay.text = money.ToString("n0");
-        upgradeDisplay.text = upgradeButton.clickValue.ToString();
-        autoClickerDisplay.text = autoClicker.autoClickPerSec.ToString("CPS: " + autoClicker.autoClickPerSec);
+        upgradeDisplay.text = handler.clickValue.ToString();
+        autoClickerDisplay.text = handler.autoClickPerSec.ToString();
 
-        money += autoClicker.autoClickPerSec * Time.deltaTime;
+        money += handler.autoClickPerSec * Time.deltaTime;
     }
 
     public void ClickerPress()
     {
-        money += upgradeButton.clickValue;
+        money += handler.clickValue;
     }
 }

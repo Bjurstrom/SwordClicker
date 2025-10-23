@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class AutoClicker : MonoBehaviour
 {
-    public float autoClickPerSec;
     [SerializeField] float autoClickLevel = 1;
 
+    UpgradeHandler handler;
     GameManager gameManager;
 
     public void Awake()
     {
+        handler = FindFirstObjectByType<UpgradeHandler>();
         gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void AutoClickerPress()
     {
-        autoClickPerSec += autoClickLevel;
-        Debug.Log(autoClickPerSec);
+        handler.AutoClickUpgradeButtonPress(autoClickLevel);
+        Debug.Log(handler.autoClickPerSec);
     }
 }

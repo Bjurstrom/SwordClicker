@@ -1,19 +1,21 @@
+using TMPro;
 using UnityEngine;
 
 public class UpgradeButton : MonoBehaviour
 {
-    public float clickValue = 1;
-    [SerializeField] float upgradeLevel = 1;
+    [SerializeField] float upgradeAmount;
+    [SerializeField] TextMeshProUGUI text;
+    UpgradeHandler handler;
 
-    GameManager gameManager;
 
-    public void Awake()
+    private void Awake()
     {
-        gameManager = FindFirstObjectByType<GameManager>();
+        handler = FindFirstObjectByType<UpgradeHandler>();
+        text.text = upgradeAmount.ToString("Click + " + upgradeAmount);
     }
 
-    public void UpgradeButtonPress()
+    public void UppgradeButtonClick()
     {
-        clickValue += upgradeLevel;
+        handler.UpgradeButtonPress(upgradeAmount);
     }
 }
