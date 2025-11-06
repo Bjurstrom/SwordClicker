@@ -398,7 +398,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 244255401}
         m_TargetAssemblyTypeName: AudioHandlerScript, Assembly-CSharp
-        m_MethodName: PlayAnvilSound
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
