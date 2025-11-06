@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class UpgradeButton : MonoBehaviour
 {
-    [SerializeField] float upgradeAmount;
-    [SerializeField] float price;
+    [SerializeField] float upgradeAmount = 1;
+    [SerializeField] float price = 10;
+    [SerializeField] float priceIncrease = 1.2f;
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] TextMeshProUGUI priceText;
 
@@ -15,10 +16,10 @@ public class UpgradeButton : MonoBehaviour
     private void Awake()
     {
         handler = FindFirstObjectByType<UpgradeHandler>();
-        gameManager = GetComponent<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
 
         text.text = upgradeAmount.ToString("Click + " + upgradeAmount);
-        priceText.text = price.ToString();
+        priceText.text = price.ToString("n0");
     }
 
     public void UpgradeButtonClick()
@@ -26,6 +27,12 @@ public class UpgradeButton : MonoBehaviour
         if (gameManager.money >= price)
         {
             handler.UpgradeButtonPress(upgradeAmount);
+
+            gameManager.money -= price;
+            price *= priceIncrease;
+
+            priceText.text = price.ToString("n0");
         }
+        else { return; }
     }
 }

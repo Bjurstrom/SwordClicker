@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyDisplay;
     [SerializeField] TextMeshProUGUI upgradeDisplay;
     [SerializeField] TextMeshProUGUI autoClickerDisplay;
+    [SerializeField] TextMeshProUGUI swordWorthDisplay;
 
     [Header("Money")]
     public float money;
+    public float swordWorth;
 
     UpgradeHandler handler;
     AutoClicker autoClicker;
@@ -26,12 +28,19 @@ public class GameManager : MonoBehaviour
         moneyDisplay.text = money.ToString("n0");
         upgradeDisplay.text = handler.clickValue.ToString();
         autoClickerDisplay.text = handler.autoClickPerSec.ToString();
+        swordWorthDisplay.text = swordWorth.ToString("n0");
 
-        money += handler.autoClickPerSec * Time.deltaTime;
+        swordWorth += handler.autoClickPerSec * Time.deltaTime;
     }
 
     public void ClickerPress()
     {
-        money += handler.clickValue;
+        swordWorth += handler.clickValue;
+    }
+
+    public void SwordSell()
+    {
+        money += swordWorth;
+        swordWorth = 0;
     }
 }

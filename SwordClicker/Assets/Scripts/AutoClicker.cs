@@ -1,8 +1,13 @@
+using TMPro;
 using UnityEngine;
 
 public class AutoClicker : MonoBehaviour
 {
-    [SerializeField] float autoClickLevel = 1;
+    [SerializeField] float upgradeAmount = 1;
+    [SerializeField] float price = 10;
+    [SerializeField] float priceIncrease = 1.5f;
+    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI priceText;
 
     UpgradeHandler handler;
     GameManager gameManager;
@@ -11,11 +16,22 @@ public class AutoClicker : MonoBehaviour
     {
         handler = FindFirstObjectByType<UpgradeHandler>();
         gameManager = FindFirstObjectByType<GameManager>();
+
+        text.text = upgradeAmount.ToString("Click + " + upgradeAmount);
+        priceText.text = price.ToString("n0");
     }
 
     public void AutoClickerPress()
     {
-        handler.AutoClickUpgradeButtonPress(autoClickLevel);
-        Debug.Log(handler.autoClickPerSec);
+        if (gameManager.money >= price)
+        {
+            handler.AutoClickUpgradeButtonPress(upgradeAmount);
+
+            gameManager.money -= price;
+            price *= priceIncrease;
+
+            priceText.text = price.ToString("n0");
+        }
+        else { return; }
     }
 }
