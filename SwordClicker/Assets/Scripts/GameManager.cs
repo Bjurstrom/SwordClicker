@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public float money;
     public float swordWorth;
 
+    [Header("Cursor")]
+    [SerializeField] Texture2D cursorTexture;
+    [SerializeField] Vector2 cursorTarget;
+
+
     UpgradeHandler handler;
     AutoClicker autoClicker;
 
@@ -21,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         handler = FindFirstObjectByType<UpgradeHandler>();
         autoClicker = FindFirstObjectByType<AutoClicker>();
+        Cursor.SetCursor(cursorTexture, cursorTarget, CursorMode.Auto);
     }
 
     public void FixedUpdate()

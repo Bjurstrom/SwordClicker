@@ -20,4 +20,18 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ReturnToMenu()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int lastSceneIndex = currentSceneIndex - 1;
+
+        if (lastSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            lastSceneIndex = 0;
+        }
+
+        SceneManager.LoadScene(lastSceneIndex);
+
+    }
 }
